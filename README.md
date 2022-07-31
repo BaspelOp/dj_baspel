@@ -13,5 +13,6 @@
 - Music Server synced through xsound
 - Currently supporting ESX
 - Everything is easily configurable
+- Can be modified
 # Preview
 - https://youtu.be/yw72Tu5WF80
