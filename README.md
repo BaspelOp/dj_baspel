@@ -5,6 +5,8 @@
 # Dependency
 - xSound: https://github.com/Xogy/xsound
 - ox_lib: https://github.com/overextended/ox_lib
+# Optional
+- ox_target: https://github.com/overextended/ox_target
 # Usage
 - Simply copy coords from your game and past'em into config.lua
 # Features
@@ -14,6 +16,8 @@
 - Currently supporting ESX
 - Everything is easily configurable
 - Can be modified
+- Supports ox_target (optional)
+- You can make your own playlist from static URL links in config
 # Preview
 - https://youtu.be/2jjH-G78fJw
 - For more work: https://discord.gg/PpAHBCMW97 
