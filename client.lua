@@ -44,7 +44,7 @@ RegisterNetEvent('dj_baspel:createMusicMenu', function()
                 description = Config.Language['stopMusicDesc'],
                 arrow = false,
                 serverEvent = 'dj_baspel:stopMusic',
-            },
+            }
         },
         {
             id = 'playlist_menu',
@@ -101,7 +101,6 @@ RegisterNetEvent('dj_baspel:playMusicMenu', function (YoutubeURL)
     end
 end)
 
-
 RegisterNetEvent('dj_baspel:changeVolumeMenu', function ()
     local input = lib.inputDialog(Config.Language['musicVolume'], {Config.Language['musicVolumeNm']})
     if input then
@@ -109,7 +108,6 @@ RegisterNetEvent('dj_baspel:changeVolumeMenu', function ()
         TriggerServerEvent('dj_baspel:changeVolume', volume)
     end
 end)
-
 
 CreateThread(function()
     if not Config.ox_target then
@@ -163,8 +161,8 @@ CreateThread(function()
     end
 end)
 
-CreateThread(function ()
-    if not Config.ox_target then
+if not Config.ox_target then
+    CreateThread(function ()
         while true do
             local sleep = 1500
             if CurrentAction ~= nil then
@@ -178,5 +176,5 @@ CreateThread(function ()
             end
             Wait(sleep)
         end
-    end
-end)
+    end)
+end
