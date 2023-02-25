@@ -127,11 +127,11 @@ CreateThread(function()
                 end
             end
 
-            if (inLocation and not hasAlreadyEnteredMarker and ESX.PlayerData.job.name == job) or (inLocation and LastZone ~= currentZone) then
+            if (inLocation and not hasAlreadyEnteredMarker and ESX.PlayerData.job.name == job) or (inLocation and LastZone ~= currentZone and ESX.PlayerData.job.name == job) then
                 hasAlreadyEnteredMarker, LastZone = true, currentZone
                 CurrentAction = 'musicMenu'
                 lib.showTextUI(Config.Language['openMenu'])
-            elseif (inLocation and not hasAlreadyEnteredMarker and job == nil) or (inLocation and LastZone ~= currentZone) then
+            elseif (inLocation and not hasAlreadyEnteredMarker and job == nil) or (inLocation and LastZone ~= currentZone and job == nil) then
                 hasAlreadyEnteredMarker, LastZone = true, currentZone
                 CurrentAction = 'musicMenu'
                 lib.showTextUI(Config.Language['openMenu'])
