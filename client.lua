@@ -1,5 +1,5 @@
 -----------------------------------------------------------------------------------
-local LastZone, CurrentAction, hasAlreadyEnteredMarker = nil, nil, false
+local LastZone, CurrentAction, hasAlreadyEnteredMarker, job = nil, nil, false, nil
 local xSound = exports.xsound
 local ox_target = exports.ox_target
 -----------------------------------------------------------------------------------
@@ -119,13 +119,19 @@ CreateThread(function()
                 local dist = #(playerCoords - Config.Locations[i].coords)
                 if dist <= Config.Distance then
                     sleep = 0
-                    if dist <= Config.Locations[i].distance then
-                        inLocation, currentZone = true, i
+                    if dist <= Config.Locations[i].distance and Config.Locations[i].onlyJob then
+                        inLocation, currentZone, job = true, i, Config.Locations[i].job
+                    elseif dist <= Config.Locations[i].distance and not Config.Locations[i].onlyJob then
+                        inLocation, currentZone, job = true, i, nil
                     end
                 end
             end
 
-            if (inLocation and not hasAlreadyEnteredMarker) or (inLocation and LastZone ~= currentZone) then
+            if (inLocation and not hasAlreadyEnteredMarker and ESX.PlayerData.job.name == job) or (inLocation and LastZone ~= currentZone) then
+                hasAlreadyEnteredMarker, LastZone = true, currentZone
+                CurrentAction = 'musicMenu'
+                lib.showTextUI(Config.Language['openMenu'])
+            elseif (inLocation and not hasAlreadyEnteredMarker and job == nil) or (inLocation and LastZone ~= currentZone) then
                 hasAlreadyEnteredMarker, LastZone = true, currentZone
                 CurrentAction = 'musicMenu'
                 lib.showTextUI(Config.Language['openMenu'])
