@@ -101,7 +101,6 @@ RegisterNetEvent('dj_baspel:playMusicMenu', function (YoutubeURL)
     end
 end)
 
-
 RegisterNetEvent('dj_baspel:changeVolumeMenu', function ()
     local input = lib.inputDialog(Config.Language['musicVolume'], {Config.Language['musicVolumeNm']})
     if input then
@@ -109,7 +108,6 @@ RegisterNetEvent('dj_baspel:changeVolumeMenu', function ()
         TriggerServerEvent('dj_baspel:changeVolume', volume)
     end
 end)
-
 
 CreateThread(function()
     if not Config.ox_target then
@@ -143,28 +141,49 @@ CreateThread(function()
         end
     else
         for k, v in pairs(Config.Locations) do
-            ox_target:addSphereZone({
-                coords = v.coords,
-                radius = 1,
-                debug = drawZones,
-                options = {
-                    {
-                        name = 'sphere:dj',
-                        event = 'dj_baspel:createMusicMenu',
-                        icon = 'fa fa-music',
-                        label = 'DJ Pult',
-                        canInteract = function(entity, distance, coords, name)
-                            return true
-                        end
+            if v.onlyJob then
+                ox_target:addSphereZone({
+                    coords = v.coords,
+                    radius = 1,
+                    debug = drawZones,
+                    options = {
+                        {
+                            name = 'sphere:dj',
+                            event = 'dj_baspel:createMusicMenu',
+                            icon = 'fa fa-music',
+                            label = 'DJ Pult',
+                            canInteract = function(entity, distance, coords, name)
+                                if v.onlyJob and ESX.PlayerData.job.name == v.job then
+                                    return true
+                                end
+                            end
+                        }
                     }
-                }
-            })
+                })
+            elseif not v.onlyJob then
+                ox_target:addSphereZone({
+                    coords = v.coords,
+                    radius = 1,
+                    debug = drawZones,
+                    options = {
+                        {
+                            name = 'sphere:dj',
+                            event = 'dj_baspel:createMusicMenu',
+                            icon = 'fa fa-music',
+                            label = 'DJ Pult',
+                            canInteract = function(entity, distance, coords, name)
+                                return true
+                            end
+                        }
+                    }
+                })
+            end
         end
     end
 end)
 
-CreateThread(function ()
-    if not Config.ox_target then
+if not Config.ox_target then
+    CreateThread(function ()
         while true do
             local sleep = 1500
             if CurrentAction ~= nil then
@@ -178,5 +197,5 @@ CreateThread(function ()
             end
             Wait(sleep)
         end
-    end
-end)
+    end)
+end
