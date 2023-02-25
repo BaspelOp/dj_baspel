@@ -17,6 +17,7 @@
 - Everything is easily configurable
 - Can be modified
 - Supports ox_target (optional)
+- You can set each location for job only (optional)
 - You can make your own playlist from static URL links in config
 # Preview
 - https://youtu.be/2jjH-G78fJw
